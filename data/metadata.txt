@@ -1,0 +1,5 @@
+feature_names: ['BIST100_change', 'Gold_change', 'Oil_change', 'USDTRY_change', 'US10Y_change', 'NatGas_change', 'VIX_change']
+data_start: 2020-04-14 00:00:00
+data_end: 2025-04-11 00:00:00
+num_samples: 1243
+class_balance: {'increase': np.float64(0.580048270313757), 'decrease': np.float64(0.41995172968624295)}
