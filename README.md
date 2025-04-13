@@ -1,152 +1,151 @@
-# 📊 Emtia Fiyatları ile BIST 100 Yön Tahmini
+# BIST 100 Direction Prediction with Commodity Prices
 
-BIST 100 endeksinin yönünü (artış/azalış) emtia fiyatları, döviz kurları ve finansal göstergeler kullanarak tahmin eden makine öğrenmesi modeli.
+A machine learning model that predicts the direction (increase/decrease) of the BIST 100 index using commodity prices, exchange rates, and financial indicators.
 
-## 📋 Proje Hakkında
+## About the Project
 
-Bu proje, makine öğrenmesi teknikleriyle BIST 100 endeksinin bir sonraki işlem gününde yükselip yükselmeyeceğini tahmin etmeyi amaçlamaktadır. Tahmin için XGBoost algoritması kullanılmış ve Streamlit ile interaktif bir web arayüzü geliştirilmiştir.
+This project aims to predict whether the BIST 100 index will rise on the next trading day using machine learning techniques. The prediction is made using the XGBoost algorithm, and an interactive web interface has been developed with Streamlit.
 
-### 📈 Veri Kaynakları
+### Data Sources
 
-- **BIST 100 endeksi (XU100.IS)**
-- **Altın Vadeli İşlemleri (GC=F)**
-- **Ham Petrol Vadeli İşlemleri (CL=F)**
-- **USD/TRY Kuru (USDTRY=X)**
-- **ABD 10 Yıllık Tahvil Getirisi (^TNX)**
-- **Doğalgaz Vadeli İşlemleri (NG=F)**
-- **VIX Volatilite Endeksi (^VIX)**
+- BIST 100 index (XU100.IS)
+- Gold Futures (GC=F)
+- Crude Oil Futures (CL=F)
+- USD/TRY Exchange Rate (USDTRY=X)
+- US 10-Year Treasury Yield (^TNX)
+- Natural Gas Futures (NG=F)
+- VIX Volatility Index (^VIX)
 
-Tüm veriler Yahoo Finance API'sinden otomatik olarak çekilmektedir.
+All data is automatically retrieved from the Yahoo Finance API.
 
-### ✨ Özellikler
+### Features
 
-- Global piyasa verilerinin detaylı görselleştirmesi
-- Korelasyon analizleri (standart ve hareketli korelasyon)
-- Lag (gecikme) analizleriyle farklı değişkenlerin BIST 100 üzerindeki gecikmeli etkilerinin tespiti
-- XGBoost ile yüksek doğruluklu sınıflandırma modeli
-- Model performans metrikleri ve değerlendirme araçları
-- Özellik önem analizi (Feature Importance)
-- Etkileşimli tahmin göstergeleri ve grafikler
+- Detailed visualization of global market data
+- Correlation analyses (standard and rolling correlation)
+- Lag analysis to detect delayed effects of different variables on BIST 100
+- High-accuracy classification model with XGBoost
+- Model performance metrics and evaluation tools
+- Feature importance analysis
+- Interactive prediction indicators and charts
 
-## 🚀 Kurulum ve Çalıştırma
+## Installation and Running
 
-### 🔧 Gereksinimler
+### Requirements
 
 - Python 3.7+
-- pip veya conda paket yöneticisi
+- pip or conda package manager
 
-### 📥 Kurulum Adımları
+### Installation Steps
 
-1. Projeyi klonlayın:
+1. Clone the project:
 ```bash
 git clone https://github.com/ayhannbozkurt/commodities-bist-analyze.git
 cd commodities-bist-analyze
 ```
 
-2. Gerekli paketleri yükleyin:
+2. Install required packages:
 ```bash
 pip install -r requirements.txt
 ```
 
-3. Veri toplama işlemini başlatın:
+3. Start data collection:
 ```bash
 python data_collector.py
 ```
 
-4. Uygulamayı çalıştırın:
+4. Run the application:
 ```bash
 streamlit run app.py
 ```
 
-## 🏗️ Proje Yapısı
+## Project Structure
 
 ```
 commodities-bist-analyze/
-├── app.py                   # Streamlit web uygulaması ana dosyası
-├── data.py                  # Veri işleme ve hazırlama modülü
-├── data_collector.py        # Veri toplama ve indirme modülü
-├── model.py                 # Model eğitimi, optimizasyon ve değerlendirme modülü
-├── model_trainer.py         # Model eğitim süreci ve metadata yönetimi
-├── visualization.py         # Veri görselleştirme fonksiyonları
-├── requirements.txt         # Proje bağımlılıkları
-├── models/                  # Eğitilmiş model ve metadata dosyaları
-└── data/                    # Veri dosyaları klasörü
+├── app.py                   # Streamlit web application main file
+├── data.py                  # Data processing and preparation module
+├── data_collector.py        # Data collection and download module
+├── model.py                 # Model training, optimization, and evaluation module
+├── model_trainer.py         # Model training process and metadata management
+├── visualization.py         # Data visualization functions
+├── requirements.txt         # Project dependencies
+├── models/                  # Trained model and metadata files
+└── data/                    # Data files directory
 ```
 
-### 📦 Modüller ve İşlevleri
+### Modules and Functions
 
 #### `data_collector.py`
-- Yahoo Finance API'sine bağlanarak finansal verileri otomatik olarak çeker
-- Veri temizleme ve birleştirme işlemlerini gerçekleştirir
-- Çekilen ham verileri `data/` klasörüne kaydeder
+- Connects to Yahoo Finance API to automatically retrieve financial data
+- Performs data cleaning and merging operations
+- Saves raw data to the `data/` directory
 
 #### `data.py`
-- Veri önişleme ve özellik mühendisliği işlemlerini yürütür
-- Lag (gecikme) özellikleri oluşturur
-- Eğitim-test veri ayrımını gerçekleştirir
-- Hedef değişkeni (yarınki BIST 100 yönü) oluşturur
+- Performs data preprocessing and feature engineering
+- Creates lag features
+- Splits data into training and test sets
+- Creates the target variable (next day's BIST 100 direction)
 
 #### `model.py`
-- XGBoost modeli için eğitim fonksiyonları
-- Model değerlendirme ve performans ölçümü
-- Hiperparametre optimizasyonu ve en iyi modelin seçilmesi
-- Model kaydetme ve yükleme işlemleri
+- Training functions for XGBoost model
+- Model evaluation and performance measurement
+- Hyperparameter optimization and selection of the best model
+- Model saving and loading functions
 
 #### `model_trainer.py`
-- End-to-end model eğitim sürecini otomatikleştirir
-- Model metadata yönetimi
-- Başarı kriterlerini değerlendirir
+- Automates the end-to-end model training process
+- Model metadata management
+- Evaluates success criteria
 
 #### `visualization.py`
-- Veri ve model sonuçlarını görselleştirme fonksiyonları
-- Korelasyon analizleri ve ısı haritaları
-- Etkileşimli grafikler ve dashboard'lar
-- Gecikme (lag) analizleri için görselleştirmeler
+- Functions for visualizing data and model results
+- Correlation analyses and heatmaps
+- Interactive charts and dashboards
+- Visualizations for lag analyses
 
 #### `app.py`
-- Streamlit web uygulaması
-- Kullanıcı arayüzü ve sayfa düzeni
-- Model tahminleri ve veri keşif arayüzü
+- Streamlit web application
+- User interface and page layout
+- Model predictions and data exploration interface
 
-## 📊 Kullanım
+## Usage
 
-Uygulama ana olarak 3 sekme içerir:
+The application consists of 3 main tabs:
 
-### 1️⃣ Piyasa Verileri
-- Farklı zaman aralıklarında piyasa verilerini görüntüleme
-- Korelasyon matrisleri ve günlük değişim grafikleri
-- Gelişmiş korelasyon analizleri
+### 1. Market Data
+- View market data over different time periods
+- Correlation matrices and daily change charts
+- Advanced correlation analyses
 
-### 2️⃣ BIST 100 Tahmini
-- En güncel verilerle yarınki BIST 100 yön tahmini
-- Tahmin olasılığı ve güven seviyesi
-- Modelin önemli bulduğu özelliklerin gösterimi
-- Son tahminlerin doğruluk oranları
+### 2. BIST 100 Prediction
+- Next-day BIST 100 direction prediction with the latest data
+- Prediction probability and confidence level
+- Display of features the model finds important
+- Accuracy rates of recent predictions
 
-### 3️⃣ Global Değişkenler ve Lag Analizi
-- Farklı emtia ve finansal göstergelerin BIST 100 üzerindeki etkilerinin analizi
-- Gecikme (lag) analizi ile değişkenlerin gecikmeli etkilerinin tespiti
-- Hareketli (rolling) korelasyon analizi
-- Global değişkenler dashboard'u
+### 3. Global Variables and Lag Analysis
+- Analysis of the effects of different commodities and financial indicators on BIST 100
+- Detection of delayed effects of variables through lag analysis
+- Rolling correlation analysis
+- Global variables dashboard
 
-## 🔍 Teknik Detaylar
+## Technical Details
 
-### 🔄 Veri İşleme
-- Günlük yüzde değişimler temel özellikler olarak kullanılmaktadır
-- Farklı gecikme (lag) günleri (1, 10, 30) için özellikler oluşturulmuştur
-- NaN değerler forward ve backward filling yöntemleriyle doldurulmuştur
+### Data Processing
+- Daily percentage changes are used as basic features
+- Features are created for different lag days (1, 10, 30)
+- NaN values are filled using forward and backward filling methods
 
-### 🤖 Model
-- XGBoost sınıflandırıcı kullanılmıştır
-- Hedef değişken: BIST 100'ün bir sonraki gün yönü (1: artış, 0: azalış)
-- Modeller cross validation ile değerlendirilmiştir
-- Doğruluk oranı, F1-skor ve ROC eğrisi ile model performansı ölçülmüştür
+### Model
+- XGBoost classifier is used
+- Target variable: Next day's direction of BIST 100 (1: increase, 0: decrease)
+- Models are evaluated with 5-fold cross-validation
+- Performance is measured with accuracy rate, F1-score, and ROC curve
 
-## 🤝 Katkıda Bulunma
+## Contributing
 
-1. Bu projeyi fork edin
-2. Yeni bir branch oluşturun (`git checkout -b feature/amazing-feature`)
-3. Değişikliklerinizi commit edin (`git commit -m 'Add amazing feature'`)
-4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
-5. Pull Request açın
-
+1. Fork this project
+2. Create a new branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push your branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
