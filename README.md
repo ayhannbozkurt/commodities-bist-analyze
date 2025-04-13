@@ -1,12 +1,12 @@
-# Emtia Fiyatları ile BIST 100 Yön Tahmini
+# 📊 Emtia Fiyatları ile BIST 100 Yön Tahmini
 
 BIST 100 endeksinin yönünü (artış/azalış) emtia fiyatları, döviz kurları ve finansal göstergeler kullanarak tahmin eden makine öğrenmesi modeli.
 
 ## 📋 Proje Hakkında
 
-Bu proje, makine öğrenmesi teknikleriyle BIST 100 endeksinin bir sonraki işlem gününde yükselip yükselmeyeceğini tahmin etmeyi amaçlamaktadır. Tahmin için XGBoost ve Random Forest algoritmaları kullanılmış ve Streamlit ile interaktif bir web arayüzü geliştirilmiştir.
+Bu proje, makine öğrenmesi teknikleriyle BIST 100 endeksinin bir sonraki işlem gününde yükselip yükselmeyeceğini tahmin etmeyi amaçlamaktadır. Tahmin için XGBoost algoritması kullanılmış ve Streamlit ile interaktif bir web arayüzü geliştirilmiştir.
 
-### Veri Kaynakları
+### 📈 Veri Kaynakları
 
 - **BIST 100 endeksi (XU100.IS)**
 - **Altın Vadeli İşlemleri (GC=F)**
@@ -18,7 +18,7 @@ Bu proje, makine öğrenmesi teknikleriyle BIST 100 endeksinin bir sonraki işle
 
 Tüm veriler Yahoo Finance API'sinden otomatik olarak çekilmektedir.
 
-### Özellikler
+### ✨ Özellikler
 
 - Global piyasa verilerinin detaylı görselleştirmesi
 - Korelasyon analizleri (standart ve hareketli korelasyon)
@@ -30,17 +30,17 @@ Tüm veriler Yahoo Finance API'sinden otomatik olarak çekilmektedir.
 
 ## 🚀 Kurulum ve Çalıştırma
 
-### Gereksinimler
+### 🔧 Gereksinimler
 
 - Python 3.7+
 - pip veya conda paket yöneticisi
 
-### Kurulum Adımları
+### 📥 Kurulum Adımları
 
 1. Projeyi klonlayın:
 ```bash
-git clone https://github.com/yourusername/emtia-bist.git
-cd emtia-bist
+git clone https://github.com/ayhannbozkurt/commodities-bist-analyze.git
+cd commodities-bist-analyze
 ```
 
 2. Gerekli paketleri yükleyin:
@@ -48,7 +48,12 @@ cd emtia-bist
 pip install -r requirements.txt
 ```
 
-3. Uygulamayı çalıştırın:
+3. Veri toplama işlemini başlatın:
+```bash
+python data_collector.py
+```
+
+4. Uygulamayı çalıştırın:
 ```bash
 streamlit run app.py
 ```
@@ -56,7 +61,7 @@ streamlit run app.py
 ## 🏗️ Proje Yapısı
 
 ```
-emtia-bist/
+commodities-bist-analyze/
 ├── app.py                   # Streamlit web uygulaması ana dosyası
 ├── data.py                  # Veri işleme ve hazırlama modülü
 ├── data_collector.py        # Veri toplama ve indirme modülü
@@ -68,7 +73,7 @@ emtia-bist/
 └── data/                    # Veri dosyaları klasörü
 ```
 
-### Modüller ve İşlevleri
+### 📦 Modüller ve İşlevleri
 
 #### `data_collector.py`
 - Yahoo Finance API'sine bağlanarak finansal verileri otomatik olarak çeker
@@ -82,11 +87,10 @@ emtia-bist/
 - Hedef değişkeni (yarınki BIST 100 yönü) oluşturur
 
 #### `model.py`
-- Random Forest ve XGBoost modelleri için eğitim fonksiyonları
+- XGBoost modeli için eğitim fonksiyonları
 - Model değerlendirme ve performans ölçümü
 - Hiperparametre optimizasyonu ve en iyi modelin seçilmesi
 - Model kaydetme ve yükleme işlemleri
-- Cross-validation fonksiyonları
 
 #### `model_trainer.py`
 - End-to-end model eğitim sürecini otomatikleştirir
@@ -108,18 +112,18 @@ emtia-bist/
 
 Uygulama ana olarak 3 sekme içerir:
 
-### 1. Piyasa Verileri
+### 1️⃣ Piyasa Verileri
 - Farklı zaman aralıklarında piyasa verilerini görüntüleme
 - Korelasyon matrisleri ve günlük değişim grafikleri
-- Normalize edilmiş fiyat hareketleri
+- Gelişmiş korelasyon analizleri
 
-### 2. BIST 100 Tahmini
+### 2️⃣ BIST 100 Tahmini
 - En güncel verilerle yarınki BIST 100 yön tahmini
 - Tahmin olasılığı ve güven seviyesi
 - Modelin önemli bulduğu özelliklerin gösterimi
 - Son tahminlerin doğruluk oranları
 
-### 3. Global Değişkenler ve Lag Analizi
+### 3️⃣ Global Değişkenler ve Lag Analizi
 - Farklı emtia ve finansal göstergelerin BIST 100 üzerindeki etkilerinin analizi
 - Gecikme (lag) analizi ile değişkenlerin gecikmeli etkilerinin tespiti
 - Hareketli (rolling) korelasyon analizi
@@ -127,15 +131,15 @@ Uygulama ana olarak 3 sekme içerir:
 
 ## 🔍 Teknik Detaylar
 
-### Veri İşleme
+### 🔄 Veri İşleme
 - Günlük yüzde değişimler temel özellikler olarak kullanılmaktadır
 - Farklı gecikme (lag) günleri (1, 10, 30) için özellikler oluşturulmuştur
 - NaN değerler forward ve backward filling yöntemleriyle doldurulmuştur
 
-### Model
-- XGBoost ve Random Forest sınıflandırıcılar kullanılmıştır
+### 🤖 Model
+- XGBoost sınıflandırıcı kullanılmıştır
 - Hedef değişken: BIST 100'ün bir sonraki gün yönü (1: artış, 0: azalış)
-- Modeller 5-katlı çapraz doğrulama ile değerlendirilmiştir
+- Modeller cross validation ile değerlendirilmiştir
 - Doğruluk oranı, F1-skor ve ROC eğrisi ile model performansı ölçülmüştür
 
 ## 🤝 Katkıda Bulunma
@@ -146,6 +150,3 @@ Uygulama ana olarak 3 sekme içerir:
 4. Branch'inizi push edin (`git push origin feature/amazing-feature`)
 5. Pull Request açın
 
-## ⚠️ Sorumluluk Reddi
-
-Bu proje eğitim ve araştırma amaçlıdır ve yatırım tavsiyesi niteliği taşımaz. Tüm tahminler gerçek piyasa koşullarında farklılık gösterebilir. Yatırım kararları için profesyonel danışmanlık hizmeti almanız önerilir. 
